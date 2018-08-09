@@ -14,6 +14,10 @@ LA bilesenlerinin kurulmasi sirasinda sanal makina temel imajlari ve kurulum pak
 ```bash
 $ sudo dpkg -i vagrant_2.1.2_x86_64.deb
 ```
+2. Sanal makinalari ve host uzerindeki hosts dosyasinin provision sirasinda yonetilmesi icin, Vagrant'in [Hostmanager eklentisinin](https://github.com/devopsgroup-io/vagrant-hostmanager) kurulmasi gerekmektedir.
+```bash
+$ vagrant plugin install vagrant-hostmanager
+```
 
 ##### Ansible Kurulumu
 
