@@ -1,16 +1,25 @@
 ---
 # This playbook will install mysql and create db user and give permissions.
 
+- name: Check if MySQL is already installed.
+  stat: path=/etc/init.d/mysql
+  register: mysql_installed
+
+- name: Update apt cache if MySQL is not yet installed.
+  apt: update_cache=yes
+  when: mysql_installed.stat.exists == false
+
 - name: Install MariaDB package
   apt: name={{ item }} state=present
   with_items:
    - python-mysqldb
    - mariadb-server
+  when: mysql_installed.stat.exists == false
 
 - name: Create MariaDB configuration file
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
   notify:
-  - restart mysql
+    - restart mysql
 
 - name: Start MariaDB Service
   service: name=mysql state=started enabled=yes
