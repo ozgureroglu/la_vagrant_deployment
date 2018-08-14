@@ -1,0 +1,35 @@
+---
+# This playbook will install mysql and create db user and give permissions.
+
+- name: Install MariaDB package
+  apt: name={{ item }} state=present
+  with_items:
+   - python-mysqldb
+   - mariadb-server
+
+- name: Create MariaDB configuration file
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  notify:
+  - restart mysql
+
+- name: Start MariaDB Service
+  service: name=mysql state=started enabled=yes
+
+# - name: insert iptables rule
+#   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"
+#               insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
+#   notify: restart iptables
+
+- name: insert iptables rule
+  iptables:
+       chain: INPUT
+       protocol: tcp
+       destination_port: "{{ mysql_port }}"
+       jump: ACCEPT
+  # notify: restart iptables
+
+- name: Create Application Database
+  mysql_db: name={{ dbname }} state=present collation=utf8_general_ci encoding=utf8
+
+- name: Create Application DB User
+  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
