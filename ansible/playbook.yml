@@ -16,3 +16,11 @@
 
   roles:
     - common
+
+
+- name: Install dbserver
+  hosts: db
+  remote_user: root
+
+  roles:
+    - db
