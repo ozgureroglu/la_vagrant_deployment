@@ -1,0 +1,31 @@
+---
+# This playbook will install openldap
+
+- name: Check if OpenLDAP is already installed.
+  stat: path=/etc/init.d/slapd
+  register: ldap_installed
+
+
+- name: Update apt cache if OpenLDAP is not yet installed.
+  apt: update_cache=yes
+  when: ldap_installed.stat.exists == false
+
+- name: Install OpenLDAP package
+  apt: name={{ item }} state=present
+  with_items:
+   - slapd
+   - ldap-utils
+   - libsasl2-dev
+   - python-dev
+   - libldap2-dev
+   - libssl-dev
+   - python-pip
+  when: ldap_installed.stat.exists == false
+
+
+- name: Install python modules
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - python-ldap
+    - ssh-ldap-pubkey

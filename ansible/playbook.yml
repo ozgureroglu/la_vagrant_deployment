@@ -24,3 +24,17 @@
 
   roles:
     - db
+
+
+- name: Install OpenLDAP
+  hosts: ldap
+  remote_user: root
+
+  roles:
+    - role: ldap
+      openldap_slapd_tls_cert: "/etc/ssl/{{ inventory_hostname }}/{{ inventory_hostname }}.pem"
+      openldap_slapd_tls_key: "/etc/ssl/{{ inventory_hostname }}/{{ inventory_hostname }}.key"
+      openldap_slapd_domain: "liderahenk.org"
+      openldap_slapd_suffix: "dc=liderahenk,dc=org"
+      openldap_slapd_admin: "cn=admin,dc=liderahenk,dc=org"
+      openldap_slapd_admin_rootpw: admin12345
