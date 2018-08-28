@@ -50,6 +50,7 @@ Vagrant.configure("2") do |config|
 
         machine.vm.hostname = name + DOMAIN
         machine.vm.network 'private_network', ip: ipaddr, netmask: NETMASK
+        machine.vm.network "public_network", use_dhcp_assigned_default_route: true
         machine.hostmanager.aliases = [name ]
       end
     end # HOSTS-each

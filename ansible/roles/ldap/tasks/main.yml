@@ -6,22 +6,39 @@
   register: ldap_installed
 
 
+#- name: Do not autoconfigure OpenLDAP
+#  debconf: >
+#    name=slapd
+#    question='slapd/no_configuration'
+#    value=true
+#    vtype=boolean
+#  tags: openldap
+
 - name: Update apt cache if OpenLDAP is not yet installed.
   apt: update_cache=yes
   when: ldap_installed.stat.exists == false
 
-- name: Install OpenLDAP package
-  apt: name={{ item }} state=present
-  with_items:
-   - slapd
-   - ldap-utils
-   - libsasl2-dev
-   - python-dev
-   - libldap2-dev
-   - libssl-dev
-   - python-pip
-  when: ldap_installed.stat.exists == false
 
+- name: Debconf
+  debconf:
+    name: 'slapd'
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  with_items: "{{ openldap_debconfs }}"
+
+
+
+- name: Install OpenLDAP package
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items: "{{ openldap_packages }}"
+  environment: "{{ env }}"
+  when: ldap_installed.stat.exists == false
+  tags: openldap
 
 - name: Install python modules
   pip:
@@ -29,3 +46,47 @@
   with_items:
     - python-ldap
     - ssh-ldap-pubkey
+
+
+
+- name: Template ldap.conf
+  template:
+    src: "ldap.conf"
+    dest: "/etc/ldap/ldap.conf"
+    mode: "0754"
+    backup: yes
+
+- name: Template ldif list
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0754"
+    backup: yes
+  with_items: "{{ openldap_ldif_list }}"
+
+- name: Template schema list
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0754"
+    backup: yes
+  with_items: "{{ openldap_schema_list }}"
+
+
+
+- name: Ensure schemas added before ldifs added
+  shell: "ldapadd -Y EXTERNAL -H ldapi:/// -f {{ item.dest }} && touch {{ item.creates }}"
+  args:
+    creates: "{{ item.creates }}"
+  with_items: "{{ openldap_schema_list }}"
+  notify:
+   - restart mysql
+
+
+#- name: Ensure ldifs added
+#  register: ldifs_added_registration
+#  shell: "ldapadd -x -D {{ openldap_slapd_admin }} -w {{ openldap_slapd_admin_rootpw }} -f {{ item.dest }} && touch {{ item.creates }}"
+#  args:
+#    creates: "{{ item.creates }}"
+#  with_items: "{{ openldap_ldif_list }}"
+#  failed_when: "ldifs_added_registration.rc > 0 and 'Already exists' not in ldifs_added_registration.stderr"
