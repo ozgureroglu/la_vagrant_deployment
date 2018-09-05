@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
     config.hostmanager.manage_guest = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
-    config.disksize.size = '20GB'
+#     config.disksize.size = '20GB'
 
     # Sanal makinalari olusturuyorum
     HOSTS.each do | (name, cfg) |

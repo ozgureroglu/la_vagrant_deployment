@@ -47,14 +47,26 @@
     - python-ldap
     - ssh-ldap-pubkey
 
+- name: Generate the root password for ldap
+  shell: "slappasswd -h {SSHA} -s {{ openldap_slapd_admin_rootpw }}"
+  register: root_password
 
-
-- name: Template ldap.conf
+- name: Copy config with olcRootPW
   template:
-    src: "ldap.conf"
-    dest: "/etc/ldap/ldap.conf"
-    mode: "0754"
-    backup: yes
+    src: "new_passwd.ldif"
+    dest: "/etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif"
+    mode: "0600"
+    owner: "openldap"
+    group: "openldap"
+
+
+
+#- name: Template ldap.conf
+#  template:
+#    src: "ldap.conf"
+#    dest: "/etc/ldap/ldap.conf"
+#    mode: "0754"
+#    backup: yes
 
 - name: Template ldif list
   template:
@@ -73,14 +85,18 @@
   with_items: "{{ openldap_schema_list }}"
 
 
+- name: restart slapd
+  service:
+    name: slapd
+    state: restarted
 
 - name: Ensure schemas added before ldifs added
-  shell: "ldapadd -Y EXTERNAL -H ldapi:/// -f {{ item.dest }} && touch {{ item.creates }}"
-  args:
-    creates: "{{ item.creates }}"
+  shell: "ldapadd -x -D \"cn=admin,cn=config\" -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
+#  args:
+#    creates: "{{ item.creates }}"
   with_items: "{{ openldap_schema_list }}"
-  notify:
-   - restart mysql
+#  notify:
+#   - restart slapd
 
 
 #- name: Ensure ldifs added

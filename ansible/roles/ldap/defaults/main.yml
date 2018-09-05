@@ -4,7 +4,7 @@ openldap_nodetype: "provider"
 
 openldap_slapd_domain: "{{ inventory_hostname }}"
 openldap_slapd_internal_pw: internalpass
-openldap_slapd_admin_rootpw: adminpass
+openldap_slapd_admin_rootpw: admin12345
 openldap_slapd_backend: "hdb"
 openldap_slapd_port: "389"
 openldap_slapd_admin: "cn=admin,dc=liderahenk,dc=org"
@@ -19,25 +19,19 @@ openldap_ldif_list:
 
 openldap_schema_list:
   - src: "liderahenk.ldif"
-    dest: "/etc/ldap/schema/liderahenk.ldif"
-    creates: "/etc/ldap/liderahenk_added"
+    dest: "/tmp/liderahenk.ldif"
+    creates: "/tmp/liderahenk_added"
 
-#  - src: "openssh-lpk.schema"
-#    dest: "/etc/ldap/schema/openssh-lpk.schema"
-#    creates: "/etc/ldap/openssh_lpk_added"
-#  - src: "ldap-profile.schema"
-#    dest: "/etc/ldap/schema/ldap-profile.schema"
-#    creates: "/etc/ldap/ldap_profile_added"
 
 openldap_debconfs:
   - question: "shared/organization"
     value: "{{ openldap_slapd_domain }}"
     vtype: "string"
-  - question: "slapd/allow_ldap_v2"
-    value: "false"
+  - question: "slapd/allow_ldap_v3"
+    value: "true"
     vtype: "boolean"
   - question: "slapd/backend"
-    value: "HDB"
+    value: "MDB"
     vtype: "select"
   - question: "slapd/domain"
     value: "{{ openldap_slapd_domain }}"
