@@ -91,7 +91,7 @@
     state: restarted
 
 - name: Ensure schemas added before ldifs added
-  shell: "ldapadd -x -D \"cn=admin,cn=config\" -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
+  shell: "ldapadd -h localhost -p 389 -x -D \"cn=admin,cn=config\" -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
 #  args:
 #    creates: "{{ item.creates }}"
   with_items: "{{ openldap_schema_list }}"
