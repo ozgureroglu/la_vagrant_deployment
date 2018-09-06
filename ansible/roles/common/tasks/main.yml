@@ -6,7 +6,6 @@
   timezone:
     name: "{{ timezone }}"
 
-
 - name: Install ntp
   apt: name=ntp state=present
   tags: ntp
@@ -19,3 +18,11 @@
 - name: Start the ntp service
   service: name=ntp state=started enabled=yes
   tags: ntp
+
+- name: replace /etc/hosts file
+  replace:
+    path: /etc/hosts
+    regexp: '127.0.1.1(.*)'
+    replace: ''
+    backup: yes
+
