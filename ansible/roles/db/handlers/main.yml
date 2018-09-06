@@ -2,8 +2,15 @@
 # Handler to handle common notifications. Handlers are called by other plays.
 # See http://docs.ansible.com/playbooks_intro.html for more information about handlers.
 
+
+- name: start mysql
+  service: name=mysql
+           enabled=yes
+           state=started
 - name: restart mysql
-  service: name=mysql state=restarted
+  service: name=mysql
+           enabled=yes
+           state=restarted
 
 - name: restart iptables
   service: name=iptables state=restarted

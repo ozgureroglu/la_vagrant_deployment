@@ -9,25 +9,28 @@
   apt: update_cache=yes
   when: mysql_installed.stat.exists == false
 
-- name: Install MariaDB package
+- name: Install MySQL package
   apt: name={{ item }} state=present
   with_items:
-   - python-mysqldb
-   - mariadb-server
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
   when: mysql_installed.stat.exists == false
 
-- name: Create MariaDB configuration file
+- name: Create MySQL configuration file
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
   notify:
-    - restart mysql
-
-- name: Start MariaDB Service
-  service: name=mysql state=started enabled=yes
+    - start mysql
 
 # - name: insert iptables rule
 #   lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"
 #               insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
 #   notify: restart iptables
+
+- name: Start server
+  shell: "/etc/init.d/mysql start"
+
+
 
 - name: insert iptables rule
   iptables:
