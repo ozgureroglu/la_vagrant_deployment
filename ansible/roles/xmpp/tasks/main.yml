@@ -1,0 +1,45 @@
+---
+# This playbook will install ejabberd
+
+- name: Add liderahenk Apt signing key
+  apt_key:
+    url: http://repo.liderahenk.org/liderahenk-archive-keyring.asc
+    state: present
+
+- name: Add liderahenk repository into sources list.
+  apt_repository:
+    repo: deb http://repo.liderahenk.org/liderahenk stable main
+    state: present
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install ejabberd package
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - ejabberd=16.06-0
+
+- name: ejabberd.yml file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0644"
+    owner: "ejabberd"
+  with_items: "{{ ejabberd_conf }}"
+
+
+- name: start ejabberd
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl start"
+
+- pause: seconds=5
+
+- name: register ejabberd admin
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl register admin {{ service_name }} {{ ejabberd_admin_pass }}"
+
+
+- name: register lider_sunucu user
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl register lider_sunucu {{ service_name }} {{ lider_sunucu_pass }}"

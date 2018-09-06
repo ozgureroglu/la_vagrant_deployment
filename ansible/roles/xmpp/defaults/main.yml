@@ -1,0 +1,6 @@
+---
+
+ejabberd_conf:
+  - src: "ejabberd.yml"
+    dest: "/opt/ejabberd-16.06/conf/ejabberd.yml"
+
