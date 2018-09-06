@@ -7,7 +7,7 @@ GUI               = false # Enable/Disable GUI
 RAM               = 128   # Default memory size in MB
 
 # Network configuration
-DOMAIN            = ".lalab.liderahenk.org"
+DOMAIN            = ".liderahenk.org"
 NETWORK           = "192.168.50."
 NETMASK           = "255.255.255.0"
 
@@ -19,7 +19,7 @@ HOSTS = {
   "lider" => [NETWORK+"10", RAM, GUI, BOX],
   "db" => [NETWORK+"11", RAM, GUI, BOX],
   "ldap" => [NETWORK+"12", RAM, GUI, BOX],
-  "xmpp" => [NETWORK+"13", RAM, GUI, BOX],
+  "im" => [NETWORK+"13", RAM, GUI, BOX],
   "fileserver" => [NETWORK+"14", RAM, GUI, BOX],
   "ahenk" => [NETWORK+"15", RAM, GUI, BOX],
 }
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
 
         machine.vm.hostname = name + DOMAIN
         machine.vm.network 'private_network', ip: ipaddr, netmask: NETMASK
-        machine.vm.network "public_network", use_dhcp_assigned_default_route: true
+#         machine.vm.network "public_network", use_dhcp_assigned_default_route: true
         machine.hostmanager.aliases = [name ]
       end
     end # HOSTS-each

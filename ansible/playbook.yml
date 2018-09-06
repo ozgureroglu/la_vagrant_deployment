@@ -38,3 +38,11 @@
       openldap_slapd_suffix: "dc=liderahenk,dc=org"
       openldap_slapd_admin: "cn=admin,dc=liderahenk,dc=org"
       openldap_slapd_admin_rootpw: admin12345
+
+
+- name: Install XMPP Server
+  hosts: im
+  remote_user: root
+
+  roles:
+    - xmpp
