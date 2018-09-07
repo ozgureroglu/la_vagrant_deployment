@@ -5,7 +5,7 @@ user=mysql
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
 port={{ mysql_port }}
-bind-address = 192.168.50.11
+bind-address = {{ ansible_eth1.ipv4.address }}
 
 [mysqld_safe]
 log-error=/var/log/mysqld.log
