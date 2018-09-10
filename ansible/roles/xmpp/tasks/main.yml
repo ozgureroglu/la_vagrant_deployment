@@ -37,9 +37,32 @@
 
 - pause: seconds=5
 
+
+
+- name: chekc registered users
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl registered_users {{service_name}}"
+  register: users
+
+
+
 - name: register ejabberd admin
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl register admin {{ service_name }} {{ ejabberd_admin_pass }}"
-
+  when: '"admin" not in users.stdout'
 
 - name: register lider_sunucu user
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl register lider_sunucu {{ service_name }} {{ lider_sunucu_pass }}"
+  when: '"lider_sunucu" not in users.stdout'
+
+
+- name: chekc roster users
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl srg_list {{service_name}}"
+  register: srg_users
+
+
+- name: roster ayarlari
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl srg-create everyone {{ service_name }} \"everyone\" this_is_everyone everyone"
+  when: '"everyone" not in srg_users.stdout'
+
+- name: roster add user
+  shell: "/opt/ejabberd-16.06/bin/ejabberdctl srg-user-add @all@ {{ service_name }} everyone {{ service_name }}"
+  when: '"everyone" not in srg_users.stdout'
