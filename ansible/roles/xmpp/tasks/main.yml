@@ -31,19 +31,14 @@
     owner: "ejabberd"
   with_items: "{{ ejabberd_conf }}"
 
-
 - name: start ejabberd
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl start"
 
 - pause: seconds=5
 
-
-
-- name: chekc registered users
+- name: check registered users
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl registered_users {{service_name}}"
   register: users
-
-
 
 - name: register ejabberd admin
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl register admin {{ service_name }} {{ ejabberd_admin_pass }}"
@@ -54,7 +49,7 @@
   when: '"lider_sunucu" not in users.stdout'
 
 
-- name: chekc roster users
+- name: check roster users
   shell: "/opt/ejabberd-16.06/bin/ejabberdctl srg_list {{service_name}}"
   register: srg_users
 

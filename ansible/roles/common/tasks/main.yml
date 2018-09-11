@@ -2,6 +2,21 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
+- name: replace /etc/hosts file
+  replace:
+    path: /etc/hosts
+    regexp: '127.0.1.1(.*)'
+    replace: ''
+    backup: yes
+
+
+- name: replace /etc/hosts file
+  replace:
+    path: /etc/hosts
+    regexp: '127.0.0.1(.*)'
+    replace: '127.0.0.1 {{ansible_hostname}} localhost'
+    backup: yes
+
 - name: set timezone to Europe/Istanbul
   timezone:
     name: "{{ timezone }}"
@@ -18,11 +33,4 @@
 - name: Start the ntp service
   service: name=ntp state=started enabled=yes
   tags: ntp
-
-- name: replace /etc/hosts file
-  replace:
-    path: /etc/hosts
-    regexp: '127.0.1.1(.*)'
-    replace: ''
-    backup: yes
 
