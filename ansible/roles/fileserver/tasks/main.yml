@@ -1,0 +1,28 @@
+---
+# This playbook will install fileserver
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install necessary packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - sshpass
+    - rsync
+
+
+- name: Add the user lauser
+  user:
+    name: lauser
+    comment: lauser
+    shell: /bin/bash
+    password: $6$iJLm01OcFEm9Lyta$vKddh7.FZPQp7NjVKzF41MwY9eSx9g8q8jZQ.VTu8qE0bjnSMziUReHyV.ss5m6mKsnWTQAZbpgBfwl75xhGB1
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa_vag
+    group: sudo
+
