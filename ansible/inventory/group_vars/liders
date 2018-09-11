@@ -1,0 +1,35 @@
+---
+# vars file for lider
+
+ldap.server: ldap.liderahenk.org
+ldap.port: 389
+ldap.username: cn=admin,dc=liderahenk,dc=org
+ldap.password: secret
+ldap.root.dn: dc=liderahenk,dc=org
+
+
+xmpp.host: im.liderahenk.org
+xmpp.port: 5222
+xmpp.username: lider_sunucu
+xmpp.password: {{ lider_sunucu_pass }}
+xmpp.resource: Smack
+xmpp.service.name: im.liderahenk.org
+
+agent.ldap.base.dn: ou=Ahenkler,dc=liderahenk,dc=org
+user.ldap.base.dn: dc=liderahenk,dc=org
+
+
+file.server.protocol: ssh
+file.server.host: fileserver.liderahenk.org
+file.server.port: 22
+file.server.username: lider
+file.server.password: PP123456
+file.server.plugin.path: /home/kullanici_adi/plugins/ahenk-{0}_{1}_amd64.deb
+file.server.agreement.path: /home/kullanici_adi/sample-agreement.txt
+file.server.agent.file.path: /home/kullanici_adi/agent-files/{0}/
+
+
+db.server: db.liderahenk.org:3306
+db.database: liderdb
+db.username: lider
+db.password: sifre

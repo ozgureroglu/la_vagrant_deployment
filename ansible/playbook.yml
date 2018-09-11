@@ -46,3 +46,20 @@
 
   roles:
     - xmpp
+
+
+- name: Install File Server
+  hosts: fileserver
+  remote_user: root
+
+  roles:
+    - fileserver
+
+
+
+- name: Install Lider Server
+  hosts: lider
+  remote_user: root
+
+  roles:
+    - lider
