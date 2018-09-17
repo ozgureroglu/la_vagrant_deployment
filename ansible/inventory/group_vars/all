@@ -4,3 +4,5 @@
 httpd_port: 80
 ntpserver: ntp.ulakbim.gov.tr
 timezone: 'Europe/Istanbul'
+
+lider_sunucu_pass: lauser
