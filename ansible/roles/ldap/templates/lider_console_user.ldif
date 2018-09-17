@@ -1,0 +1,13 @@
+dn: cn={{lider_console_user}}, {{openldap_slapd_suffix}}
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: pardusAccount
+objectClass: pardusLider
+objectClass: person
+objectClass: top
+cn: {{lider_console_user}}
+sn: {{lider_console_user}}
+uid: {{lider_console_user}}
+userPassword: {{lider_console_user_password}}
+liderPrivilege: [REPORT:ALL]
+liderPrivilege: [TASK:{{openldap_slapd_suffix}}:ALL]

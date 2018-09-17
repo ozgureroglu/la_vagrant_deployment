@@ -76,6 +76,18 @@
     backup: yes
   with_items: "{{ openldap_ldif_list }}"
 
+
+- name: Template data ldif list
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "0754"
+    backup: yes
+  with_items: "{{ openldap_data_ldif_list }}"
+
+
+
+
 - name: Template schema list
   template:
     src: "{{ item.src }}"
@@ -90,6 +102,7 @@
     name: slapd
     state: restarted
 
+
 - name: Ensure schemas added before ldifs added
   shell: "ldapadd -h localhost -p 389 -x -D \"cn=admin,cn=config\" -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
 #  args:
@@ -99,10 +112,11 @@
 #   - restart slapd
 
 
-#- name: Ensure ldifs added
-#  register: ldifs_added_registration
-#  shell: "ldapadd -x -D {{ openldap_slapd_admin }} -w {{ openldap_slapd_admin_rootpw }} -f {{ item.dest }} && touch {{ item.creates }}"
-#  args:
-#    creates: "{{ item.creates }}"
-#  with_items: "{{ openldap_ldif_list }}"
-#  failed_when: "ldifs_added_registration.rc > 0 and 'Already exists' not in ldifs_added_registration.stderr"
+- name: Add Ahenkler group,lider_console user
+  shell: "ldapadd -h localhost -p 389 -x -D {{openldap_slapd_admin}} -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
+  with_items: "{{ openldap_ldif_list }}"
+
+
+- name: Add Ahenkler group,lider_console user
+  shell: "ldapadd -h localhost -p 389 -x -D {{openldap_slapd_admin}} -f {{ item.dest }} -w {{ openldap_slapd_admin_rootpw }}"
+  with_items: "{{ openldap_data_ldif_list }}"

@@ -1,0 +1,5 @@
+dn: ou=Ahenkler,{{openldap_slapd_suffix}}
+objectClass: organizationalUnit
+objectClass: top
+ou: Ahenkler
+description: pardusDeviceGroup
