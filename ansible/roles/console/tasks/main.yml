@@ -1,0 +1,54 @@
+- name: Add liderahenk Apt signing key
+  apt_key:
+    url: http://repo.liderahenk.org/liderahenk-archive-keyring.asc
+    state: present
+
+- name: Add liderahenk repository into sources list.
+  apt_repository:
+    repo: deb [arch=amd64] http://repo.liderahenk.org/liderahenk stable main
+    state: present
+
+
+- name: Add testing repository into sources list.
+  apt_repository:
+    repo: deb [arch=amd64] http://ftp.us.debian.org/debian/ testing main
+    state: present
+
+- name: Copy apt preferences
+  template:
+    src: "{{ item }}"
+    dest: "/etc/apt/preferences"
+    mode: "0754"
+    backup: yes
+  with_items:
+    - apt_preferences
+
+
+#
+#- apt_repository:
+#    repo: deb http://http.debian.net/debian jessie-backports main
+#    state: present
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install xfce4
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - xfce4
+    - lider-console
+
+- name: Create console config folder
+  shell: "mkdir -p /home/vagrant/.metadata/.plugins/org.apache.directory.studio.connection.core/"
+
+- name: Copy console connection config
+  template:
+    src: "{{ item }}"
+    dest: "/home/vagrant/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml"
+    mode: "0754"
+    backup: yes
+  with_items:
+    - connections.xml

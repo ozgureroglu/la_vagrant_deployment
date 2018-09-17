@@ -63,3 +63,18 @@
 
   roles:
     - lider
+
+
+- name: Install Test Ahenk
+  hosts: ahenk
+  remote_user: root
+
+  roles:
+    - ahenk
+
+- name: Install Console
+  hosts: console
+  remote_user: root
+
+  roles:
+    - console
