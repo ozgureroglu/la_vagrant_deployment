@@ -1,0 +1,14 @@
+---
+# handlers file for lider
+
+
+
+- name: start lider
+  service:
+    name: lider
+    state: started
+
+- name: restart lider
+  service:
+    name: lider
+    state: restarted

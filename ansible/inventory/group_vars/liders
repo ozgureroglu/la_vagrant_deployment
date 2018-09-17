@@ -1,35 +1,39 @@
 ---
 # vars file for lider
 
-ldap.server: ldap.liderahenk.org
-ldap.port: 389
-ldap.username: cn=admin,dc=liderahenk,dc=org
-ldap.password: secret
-ldap.root.dn: dc=liderahenk,dc=org
+
+lider_conf_src: tr.org.liderahenk.cfg
+lider_conf_dst: /usr/share/lider-server/etc/tr.org.liderahenk.cfg
+
+ldap_server: ldap.liderahenk.org
+ldap_port: 389
+ldap_username: cn=admin,dc=liderahenk,dc=org
+ldap_password: secret
+ldap_root_dn: dc=liderahenk,dc=org
 
 
-xmpp.host: im.liderahenk.org
-xmpp.port: 5222
-xmpp.username: lider_sunucu
-xmpp.password: {{ lider_sunucu_pass }}
-xmpp.resource: Smack
-xmpp.service.name: im.liderahenk.org
+xmpp_host: im.liderahenk.org
+xmpp_port: 5222
+xmpp_username: lider_sunucu
+xmpp_password: "{{ lider_sunucu_pass }}"
+xmpp_resource: Smack
+xmpp_service_name: im.liderahenk.org
 
-agent.ldap.base.dn: ou=Ahenkler,dc=liderahenk,dc=org
-user.ldap.base.dn: dc=liderahenk,dc=org
-
-
-file.server.protocol: ssh
-file.server.host: fileserver.liderahenk.org
-file.server.port: 22
-file.server.username: lider
-file.server.password: PP123456
-file.server.plugin.path: /home/kullanici_adi/plugins/ahenk-{0}_{1}_amd64.deb
-file.server.agreement.path: /home/kullanici_adi/sample-agreement.txt
-file.server.agent.file.path: /home/kullanici_adi/agent-files/{0}/
+agent_ldap_base_dn: ou=Ahenkler,dc=liderahenk,dc=org
+user_ldap_base_dn: dc=liderahenk,dc=org
 
 
-db.server: db.liderahenk.org:3306
-db.database: liderdb
-db.username: lider
-db.password: sifre
+file_server_protocol: ssh
+file_server_host: fileserver.liderahenk.org
+file_server_port: 22
+file_server_username: lauser
+file_server_password: lauser
+file_server_plugin_path: /home/{{file_server_username}}/plugins/ahenk-{0}_{1}_amd64.deb
+file_server_agreement_path: /home/{{file_server_username}}/sample-agreement.txt
+file_server_agent_file_path: /home/{{file_server_username}}/agent-files/{0}/
+
+
+db_server: db.liderahenk.org:3306
+db_database: liderdb
+db_username: lider
+db_password: sifre

@@ -3,9 +3,9 @@
 
 
 # Add specified repository into sources list.
-- apt_repository:
-    repo: deb http://http.debian.net/debian jessie-backports main
-    state: present
+#- apt_repository:
+#    repo: deb http://http.debian.net/debian jessie-backports main
+#    state: present
 
 - name: Add liderahenk Apt signing key
   apt_key:
@@ -21,22 +21,48 @@
   apt: update_cache=yes
 
 
-- name: Install openjdk-8 from jessie-backports
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-    default_release: jessie-backports
-    cache_valid_time: 3600
-  with_items:
-    - openjdk-8-jre
+#- name: Install openjdk-8 from jessie-backports
+#  apt:
+#    name: "{{ item }}"
+#    state: present
+#    update_cache: yes
+#    default_release: jessie-backports
+#    cache_valid_time: 3600
+#  with_items:
+#    - openjdk-8-jre
+
+
+#- lineinfile:
+#    path: /etc/environment
+#    regexp: 'ˆexport JAVA_HOME(.*)'
+#    line: 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/'
+
+#- name: Set openjdk-8 as default
+#  alternatives:
+#    name: java
+#    path:  /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+#
+- name: Check if Lider Service is already installed.
+  stat: path=/etc/init.d/lider
+  register: lider_installed
 
 
 - name: Install lider-server package
   apt:
     name: "{{ item }}"
-    state: present
     update_cache: yes
     cache_valid_time: 3600
   with_items:
     - lider-server
+  when:
+    - lider_installed.stat.exists == false
+
+- name: Copy lider config
+  template:
+    src: "{{ lider_conf_src }}"
+    dest: "{{ lider_conf_dst }}"
+    mode: "0754"
+    backup: yes
+  notify:
+    - restart lider
+
