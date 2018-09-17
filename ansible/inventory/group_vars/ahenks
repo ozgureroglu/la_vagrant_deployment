@@ -1,0 +1,4 @@
+xmpp_server: 192.168.50.13
+receiverjid: lider_sunucu
+receiverresource: Smack
+servicename: im.liderahenk.org
