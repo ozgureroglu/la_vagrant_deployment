@@ -5,10 +5,15 @@
 lider_conf_src: tr.org.liderahenk.cfg
 lider_conf_dst: /usr/share/lider-server/etc/tr.org.liderahenk.cfg
 
+
+lider_db_conf_src: tr.org.datasource.cfg
+lider_db_conf_dst: /usr/share/lider-server/etc/tr.org.datasource.cfg
+
+
 ldap_server: ldap.liderahenk.org
 ldap_port: 389
 ldap_username: cn=admin,dc=liderahenk,dc=org
-ldap_password: secret
+ldap_password: admin12345
 ldap_root_dn: dc=liderahenk,dc=org
 
 

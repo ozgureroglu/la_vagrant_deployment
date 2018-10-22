@@ -3,7 +3,7 @@
   remote_user: root
   tasks:
     - name: install python 2
-      gather_facts: false
+#      gather_facts: false
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
     - name: update machine package cache

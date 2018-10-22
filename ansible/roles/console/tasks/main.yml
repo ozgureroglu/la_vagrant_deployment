@@ -42,13 +42,18 @@
     - lider-console
 
 - name: Create console config folder
-  shell: "mkdir -p /home/vagrant/.metadata/.plugins/org.apache.directory.studio.connection.core/"
+  shell: "mkdir -p /etc/xdg/workspace/.metadata/.plugins/org.apache.directory.studio.connection.core/"
 
 - name: Copy console connection config
   template:
     src: "{{ item }}"
-    dest: "/home/vagrant/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml"
+    dest: "/etc/xdg/workspace/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml"
     mode: "0754"
     backup: yes
   with_items:
     - connections.xml
+
+
+- name: Unconditionally reboot the machine with all defaults
+  reboot:
+

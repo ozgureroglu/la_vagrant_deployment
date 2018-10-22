@@ -63,6 +63,14 @@
     dest: "{{ lider_conf_dst }}"
     mode: "0754"
     backup: yes
+
+
+
+- name: Copy lider datasource config
+  template:
+    src: "{{ lider_db_conf_src }}"
+    dest: "{{ lider_db_conf_dst }}"
+    mode: "0754"
+    backup: yes
   notify:
     - restart lider
-

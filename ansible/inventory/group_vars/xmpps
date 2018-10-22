@@ -7,4 +7,4 @@ ldap_rootdn: cn=admin,dc=liderahenk,dc=org
 ldap_password: admin12345
 ldap_base: dc=liderahenk,dc=org
 ejabberd_admin_pass: imadmin
-lider_sunucu_pass: laserver
+lider_sunucu_pass: lauser

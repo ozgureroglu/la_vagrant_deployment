@@ -4,7 +4,7 @@
 # ---- Configuration variables ----
 
 GUI               = false # Enable/Disable GUI
-RAM               = 128   # Default memory size in MB
+RAM               = 512   # Default memory size in MB
 RAM2              = 1024
 
 
@@ -19,11 +19,11 @@ BOX               = 'debian/jessie64'
 BOX2               = 'debian/stretch64'
 
 HOSTS = {
-  "lider" => [NETWORK+"10", RAM, GUI, BOX],
   "db" => [NETWORK+"11", RAM, GUI, BOX],
   "ldap" => [NETWORK+"12", RAM, GUI, BOX],
   "im" => [NETWORK+"13", RAM, GUI, BOX],
   "fileserver" => [NETWORK+"14", RAM, GUI, BOX],
+  "lider" => [NETWORK+"10", RAM, GUI, BOX],
   "ahenk" => [NETWORK+"15", RAM2, GUI, BOX2],
   "console" => [NETWORK+"16", 4096, true, BOX2],
 }

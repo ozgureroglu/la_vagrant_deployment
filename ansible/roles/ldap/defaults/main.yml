@@ -3,7 +3,6 @@
 openldap_nodetype: "provider"
 
 openldap_slapd_domain: "{{ inventory_hostname }}"
-openldap_slapd_internal_pw: internalpass
 openldap_slapd_admin_rootpw: admin12345
 openldap_slapd_backend: "hdb"
 openldap_slapd_port: "389"
