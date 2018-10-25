@@ -67,8 +67,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision :ansible do |ansible|
       ansible.playbook = "ansible/playbook.yml"
       ansible.inventory_path = "ansible/inventory"
+
       ansible.become = true
-      ansible.compatibility_mode = "1.8"
+#       ansible.compatibility_mode = "1.8"
     end
 
 end

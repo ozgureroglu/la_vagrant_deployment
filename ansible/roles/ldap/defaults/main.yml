@@ -21,8 +21,6 @@ openldap_ldif_list:
     creates: "/etc/ldap/rootdn_created"
 
 
-
-
 openldap_data_ldif_list:
   - src: "ahenkler.ldif"
     dest: "/etc/ldap/ahenkler.ldif"

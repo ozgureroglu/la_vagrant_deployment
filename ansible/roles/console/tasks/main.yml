@@ -54,6 +54,6 @@
     - connections.xml
 
 
-- name: Unconditionally reboot the machine with all defaults
+- name: Unconditionally reboot the console machine with all defaults
   reboot:
 

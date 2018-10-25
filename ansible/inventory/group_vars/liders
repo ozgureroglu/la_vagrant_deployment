@@ -7,7 +7,7 @@ lider_conf_dst: /usr/share/lider-server/etc/tr.org.liderahenk.cfg
 
 
 lider_db_conf_src: tr.org.datasource.cfg
-lider_db_conf_dst: /usr/share/lider-server/etc/tr.org.datasource.cfg
+lider_db_conf_dst: /usr/share/lider-server/etc/tr.org.liderahenk.datasource.cfg
 
 
 ldap_server: ldap.liderahenk.org

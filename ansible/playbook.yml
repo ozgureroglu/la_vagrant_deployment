@@ -3,12 +3,13 @@
   remote_user: root
   tasks:
     - name: install python 2
-#      gather_facts: false
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
     - name: update machine package cache
       apt:
          update_cache: yes
+
+
 
 - name: apply common configuration to all nodes
   hosts: all
@@ -21,7 +22,6 @@
 - name: Install dbserver
   hosts: db
   remote_user: root
-
   roles:
     - db
 
@@ -64,6 +64,10 @@
   roles:
     - lider
 
+- hosts: liders
+  remote_user: root
+  tasks:
+    
 
 - name: Install Test Ahenk
   hosts: ahenk
