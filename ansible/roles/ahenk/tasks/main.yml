@@ -56,3 +56,6 @@
 
 #/home/pardus/workspace/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml:
 
+
+- name: reboot ahenk with all defaults
+  reboot:
