@@ -6,7 +6,7 @@ user=mysql
 symbolic-links=0
 port={{ mysql_port }}
 #ip of lider
-bind-address = 192.168.50.10
+bind-address = {{ ansible_facts["eth1"]["ipv4"]["address"] }}
 
 
 [mysqld_safe]

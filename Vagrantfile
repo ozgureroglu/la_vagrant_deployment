@@ -24,7 +24,7 @@ HOSTS = {
   "im" => [NETWORK+"13", RAM, GUI, BOX],
   "fileserver" => [NETWORK+"14", RAM, GUI, BOX],
   "lider" => [NETWORK+"10", RAM, GUI, BOX],
-  "ahenk" => [NETWORK+"15", RAM2, GUI, BOX2],
+  "ahenk" => [NETWORK+"15", 2048, true, BOX2],
   "console" => [NETWORK+"16", 4096, true, BOX2],
 }
 

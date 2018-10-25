@@ -23,14 +23,18 @@
   with_items:
     - apt_preferences
 
-
-#
-#- apt_repository:
-#    repo: deb http://http.debian.net/debian jessie-backports main
-#    state: present
-
 - name: Update apt cache
   apt: update_cache=yes
+
+
+- name: Install xfce4
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - xfce4
+
 
 - name: Install ahenk package
   apt:
@@ -39,7 +43,7 @@
     update_cache: yes
     cache_valid_time: 3600
   with_items:
-    - ahenk=1.0.0-7
+    - ahenk
 
 - name: Copy ahenk preferences
   template:
