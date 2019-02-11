@@ -28,7 +28,7 @@
 #   notify: restart iptables
 
 - name: Start server
-  shell: "/etc/init.d/mysql start"
+  shell: "/etc/init.d/mysql restart"
 
 
 
