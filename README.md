@@ -1,12 +1,17 @@
-Bu dokuman Vagrant ve Ansible ile LA demo ortami kurulumunu anlatmaktadir. Tum bilesenler ayri Virtualbox sanal makinalar olarak kurulacaktir. Kurulan sistem gelistirme sirasinda test amacli olarak da kullanilabilir.
+Bu dokuman Vagrant ve Ansible ile LA demo ortami kurulumunu anlatmaktadir. Tum Lider-Ahenk bilesenleri ayri birer Virtualbox sanal makinasi olarak olusturulacaktir. Kurulan sistem gelistirme sirasinda test amacli veya demo ortami olarak da kullanilabilir.
 
 ## Kurulum Gereksinimleri
-Demo icin kullanilacak olan fiziksel makinada (guncel bir linux versiyonu tavsiye edilir) vagrant (2.1.2) ve ansible (2.7.0) kurulu olmalidir.
+Kurulum icin kullanilacak olan fiziksel makinada (guncel bir linux versiyonu tavsiye edilir) git, vagrant (2.1.2) ve ansible (2.7.0) kurulu olmalidir. Bu uygulamalarin daha yeni versiyonlarinin kurulmasi durumunda sorun cikmasi beklenmemektedir ancak testleri yukarida belirtilen versiyonlar ile yapilmistir.
 
 
 ##### Internet Erisimi
-LA bilesenlerinin kurulmasi sirasinda sanal makina temel imajlari ve kurulum paketleri internetten indirilecegi icin kurulum sirasinda internet erisimi gereklidir. Sistem kurulumu tamamlandiktan sonra, demo ortaminin kullanilmasi icin internet baglantisi gerekli degildir.
+LA bilesenlerinin kurulmasi sirasinda sanal makina baz imajlari ve kurulum paketleri internetten indirilecegi icin kurulum sirasinda internet erisimi gereklidir. Sistem kurulumu tamamlandiktan sonra, demo ortaminin kullanilmasi icin internet baglantisi gerekli degildir, istenirse kapatilabilir.
 
+##### Git Kurulumu
+Git debian paket depolarindan asagidaki komutla kurulabilir.
+```bash
+$ sudo apt-get install git
+```
 
 ##### Vagrant Kurulumu
 
@@ -56,4 +61,8 @@ ansible 2.7.0
 ```bash
 $ vagrant up
 ```
-komutu calistirilir ve kurulumun bitmesi beklenir. Virtualbox uygulamasi acilip kontrol edilirse, sanal makinalarin Vagrantfile icindeki sira ile olustugu gorulebilir. Kurulum tamamlandiginda console makinasi virtualbox uzerinden acilarak 'vagrant' kullanici adi ve 'vagrant' sifresi ile kullanilabilir.
+komutu calistirilir ve kurulumun bitmesi beklenir. Kurulum sirasinda Virtualbox uygulamasi acilip, mevcut sanal makina listesi kontrol edilirse, LA bilesenlerine ait sanal makinalarin, Vagrantfile icindeki sira ile olustugu gorulebilir. Kurulum tamamlandiginda console makinasi virtualbox uzerinden acilarak 'vagrant' kullanici adi ve 'vagrant' sifresi ile kullanilabilir.
+
+
+##### NOT:
+Kurulan tum sanal makinalar icin kullanici adi ve sifre "vagrant" olarak olusturulmustur.
