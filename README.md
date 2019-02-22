@@ -4,16 +4,16 @@ Bu dokuman Vagrant ve Ansible ile LA demo ortami kurulumunu anlatmaktadir. Tum L
 Kurulum icin kullanilacak olan fiziksel makinada (guncel bir linux versiyonu tavsiye edilir) git, vagrant (2.1.2) ve ansible (2.7.0) kurulu olmalidir. Bu uygulamalarin daha yeni versiyonlarinin kurulmasi durumunda sorun cikmasi beklenmemektedir ancak testleri yukarida belirtilen versiyonlar ile yapilmistir.
 
 
-##### Internet Erisimi
+#### Internet Erisimi
 LA bilesenlerinin kurulmasi sirasinda sanal makina baz imajlari ve kurulum paketleri internetten indirilecegi icin kurulum sirasinda internet erisimi gereklidir. Sistem kurulumu tamamlandiktan sonra, demo ortaminin kullanilmasi icin internet baglantisi gerekli degildir, istenirse kapatilabilir.
 
-##### Git Kurulumu
+#### Git Kurulumu
 Git debian paket depolarindan asagidaki komutla kurulabilir.
 ```bash
 $ sudo apt-get install git
 ```
 
-##### Vagrant Kurulumu
+#### Vagrant Kurulumu
 
 1. Debian turevleri icin (Pardus dahil) vagrant kurulumu : https://www.vagrantup.com/downloads.html adresinden indirilebilen https://releases.hashicorp.com/vagrant/2.1.2/vagrant_2.1.2_x86_64.deb(https://releases.hashicorp.com/vagrant/2.1.2/vagrant_2.1.2_x86_64.deb) paketi ile yapilabilir. Paket indirildikten sonra asagidaki komut ile kurulabilir:
 ```bash
@@ -24,7 +24,7 @@ $ sudo dpkg -i vagrant_2.1.2_x86_64.deb
 $ vagrant plugin install vagrant-hostmanager
 ```
 
-##### Ansible Kurulumu
+#### Ansible Kurulumu
 
 Debian turevleri icin (Pardus dahil) ansible kurulumu asagidaki adimlar ile yapilir:
 1. Repo anahtarlari import edilir:
@@ -51,7 +51,7 @@ ansible 2.7.0
   python version = 2.7.15rc1 (default, Apr 15 2018, 21:51:34) [GCC 7.3.0]
 ```
 
-##### Virtualbox Kurulumu
+#### Virtualbox Kurulumu
 1. Demo icin kullanilacak sistemde virtualbox kurulumu yapilmis olmalidir. Kurulum [virtualbox download](https://www.virtualbox.org/wiki/Linux_Downloads) sayfasindan indirilebilen [bionic paketi](https://download.virtualbox.org/virtualbox/5.2.16/virtualbox-5.2_5.2.16-123759~Ubuntu~bionic_amd64.deb) ile yapilir.
 2. Virtualbox kurulduktan sonra yine [virtualbox download](https://www.virtualbox.org/wiki/Downloads) sayfasinda bulunan [extension paketi](https://download.virtualbox.org/virtualbox/5.2.16/Oracle_VM_VirtualBox_Extension_Pack-5.2.16.vbox-extpack) kurulur.
 
@@ -64,5 +64,5 @@ $ vagrant up
 komutu calistirilir ve kurulumun bitmesi beklenir. Kurulum sirasinda Virtualbox uygulamasi acilip, mevcut sanal makina listesi kontrol edilirse, LA bilesenlerine ait sanal makinalarin, Vagrantfile icindeki sira ile olustugu gorulebilir. Kurulum tamamlandiginda console makinasi virtualbox uzerinden acilarak 'vagrant' kullanici adi ve 'vagrant' sifresi ile kullanilabilir.
 
 
-##### NOT:
+#### NOT:
 Kurulan tum sanal makinalar icin kullanici adi ve sifre "vagrant" olarak olusturulmustur.
